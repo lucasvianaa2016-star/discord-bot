@@ -1,10 +1,10 @@
 # Bot do Discord do FoxLT
 
-Bot inicial com mensagem de boas-vindas e comandos de moderação.
+Bot inicial com avisos de entrada e saída, além de comandos de moderação.
 
 ## O que ele faz
 
-- Envia uma mensagem quando alguém entra. Configure `WELCOME_CHANNEL_ID`; sem ela, tenta usar o canal de sistema do servidor.
+- Envia uma mensagem quando alguém entra ou sai. Configure `WELCOME_CHANNEL_ID`; sem ela, tenta usar o canal de sistema do servidor.
 - Disponibiliza `/kick`, `/ban`, `/timeout` e `/clear`.
 - Os comandos exigem a permissão correspondente no Discord e o bot precisa ter permissões e cargo acima do membro moderado.
 
@@ -12,7 +12,7 @@ Bot inicial com mensagem de boas-vindas e comandos de moderação.
 
 1. Crie uma aplicação no [Discord Developer Portal](https://discord.com/developers/applications).
 2. Na página **Bot**, crie/copiei o token. Mantenha-o secreto; não o coloque no GitHub nem o envie no chat.
-3. Em **Bot > Privileged Gateway Intents**, ative **Server Members Intent** para receber o evento de entrada de membros.
+3. Em **Bot > Privileged Gateway Intents**, ative **Server Members Intent** para receber os eventos de entrada e saída de membros.
 4. Em **OAuth2 > URL Generator**, marque os escopos `bot` e `applications.commands`.
 5. Convide o bot ao seu servidor com as permissões **View Channels**, **Send Messages**, **Kick Members**, **Ban Members**, **Moderate Members** e **Manage Messages**. Dê ao cargo do bot uma posição acima dos membros que ele poderá moderar.
 
@@ -24,7 +24,7 @@ Requer Node.js 24.17 ou mais recente.
    - `DISCORD_TOKEN`: token do bot.
    - `DISCORD_CLIENT_ID`: Application ID da aplicação.
    - `DISCORD_GUILD_ID`: ID do seu servidor (ative o Modo Desenvolvedor no Discord e use **Copiar ID**).
-   - `WELCOME_CHANNEL_ID`: ID do canal de boas-vindas.
+   - `WELCOME_CHANNEL_ID`: ID do canal de avisos de entrada e saída.
 2. No terminal, nesta pasta:
    ```sh
    npm install
