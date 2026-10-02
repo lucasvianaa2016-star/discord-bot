@@ -19,19 +19,33 @@ client.once(Events.ClientReady, readyClient => {
   console.log(`Bot conectado como ${readyClient.user.tag}.`);
 });
 
-client.on(Events.GuildMemberAdd, async member => {
+async function announceMemberEvent(guild, message) {
   const channelId = process.env.WELCOME_CHANNEL_ID;
   const channel = channelId
-    ? await member.guild.channels.fetch(channelId).catch(() => null)
-    : member.guild.systemChannel;
+    ? await guild.channels.fetch(channelId).catch(() => null)
+    : guild.systemChannel;
 
-  if (!channel?.isTextBased() || !channel.permissionsFor(member.guild.members.me)?.has(PermissionFlagsBits.SendMessages)) {
-    console.warn(`Não consegui enviar boas-vindas no servidor ${member.guild.name}.`);
+  if (!channel?.isTextBased() || !channel.permissionsFor(guild.members.me)?.has(PermissionFlagsBits.SendMessages)) {
+    console.warn(`Não consegui enviar aviso no servidor ${guild.name}.`);
     return;
   }
 
-  await channel.send(`Bem-vindo(a) ${member}! Seja muito bem-vindo(a) ao **${member.guild.name}**! 🎉`)
-    .catch(error => console.error("Falha ao enviar boas-vindas:", error));
+  await channel.send(message)
+    .catch(error => console.error("Falha ao enviar aviso de membros:", error));
+}
+
+client.on(Events.GuildMemberAdd, async member => {
+  await announceMemberEvent(
+    member.guild,
+    `Bem-vindo(a) ${member}! Seja muito bem-vindo(a) ao **${member.guild.name}**! 🎉`,
+  );
+});
+
+client.on(Events.GuildMemberRemove, async member => {
+  await announceMemberEvent(
+    member.guild,
+    `👋 **${member.user.tag}** saiu do servidor **${member.guild.name}**.`,
+  );
 });
 
 client.on(Events.InteractionCreate, async interaction => {
