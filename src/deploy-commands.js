@@ -16,6 +16,10 @@ if (!token || !clientId || !guildId) {
 
 const commands = [
   new SlashCommandBuilder()
+    .setName("ping")
+    .setDescription("Responde com Pong!"),
+
+  new SlashCommandBuilder()
     .setName("kick")
     .setDescription("Expulsa um membro do servidor.")
     .addUserOption(option =>
