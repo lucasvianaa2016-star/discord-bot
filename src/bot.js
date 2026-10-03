@@ -51,6 +51,11 @@ client.on(Events.GuildMemberRemove, async member => {
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand() || !interaction.inGuild()) return;
 
+  if (interaction.commandName === "ping") {
+    await interaction.reply({ content: "Pong! 🏓" });
+    return;
+  }
+
   const requiredPermissions = {
     kick: PermissionFlagsBits.KickMembers,
     ban: PermissionFlagsBits.BanMembers,
